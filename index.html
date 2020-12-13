@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>painting</title>
+</head>
+<body>
+    
+    <canvas id="canvas"></canvas>
+
+    <script>
+        window.addEventListener("load", ()=>{
+            let canvas = document.getElementById("canvas");
+            let ctx = canvas.getContext("2d");
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            let painting = false;
+
+            function start(e){
+                painting = true;
+                draw(e);
+            }
+
+            function stop(){
+                painting = false;
+                ctx.beginPath();
+            }
+
+            function draw(e){
+                if(!painting) return;
+                ctx.lineWidth = 20;
+                ctx.lineCap = "round";
+                ctx.strokeStyle = "maroon";
+
+
+                ctx.lineTo(e.clientX, e.clientY);
+                ctx.stroke();
+                // ctx.beginPath();
+                // ctx.moveTo(e.clientX, e.clientY);
+            }
+
+            canvas.addEventListener('mousedown', start);
+            canvas.addEventListener("mouseup", stop);
+            canvas.addEventListener("mousemove", draw);
+
+        });
+
+    </script>
+</body>
+</html>
